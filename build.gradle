@@ -1,20 +1,18 @@
 plugins {
     id 'groovy'
     id 'codenarc'
-    id 'com.gradle.plugin-publish' version '0.15.0'
+    id 'com.gradle.plugin-publish' version '2.0.0'
     id 'java-gradle-plugin'
-    id 'se.patrikerdes.use-latest-versions' version '0.2.17'
-    id 'com.github.ben-manes.versions' version '0.39.0'
+    id 'se.patrikerdes.use-latest-versions' version '0.2.19'
+    id 'com.github.ben-manes.versions' version '0.53.0'
 }
-
-sourceCompatibility = 1.8
 
 dependencies {
     implementation gradleApi()
-    implementation 'net.sf.saxon:Saxon-HE:10.5'
+    implementation 'net.sf.saxon:Saxon-HE:12.6'
     implementation 'xml-resolver:xml-resolver:1.2'
-
-    testImplementation('org.spockframework:spock-core:2.0-groovy-3.0') {
+    testImplementation "org.junit.platform:junit-platform-launcher"
+    testImplementation('org.spockframework:spock-core:2.4-M7-groovy-4.0') {
         exclude group: 'org.codehaus.groovy'
     }
 
@@ -26,8 +24,8 @@ repositories {
     mavenCentral()
 }
 
-group = 'com.github.eerohele'
-version = '0.9.0-beta4'
+group = 'com.github.Lunatix01'
+version = '0.9.0-beta5'
 
 test {
     testLogging {
@@ -36,29 +34,22 @@ test {
     }
 }
 
-wrapper {
-    gradleVersion = '7.2'
-}
-
 codenarc {
     toolVersion = '0.24.1'
     configFile = file('config/codenarc/codenarc.groovy')
 }
 
-pluginBundle {
-    website = 'https://github.com/eerohele/saxon-gradle'
-    vcsUrl = 'https://github.com/eerohele/saxon-gradle.git'
-    description = 'A Gradle plugin for running Saxon'
-    tags = ['saxon', 'xslt', 'documentation']
-}
-
 gradlePlugin {
+    website = 'https://github.com/Lunatix01/saxon-gradle'
+    vcsUrl = 'https://github.com/Lunatix01/saxon-gradle'
+    description = 'A Gradle plugin for running Saxon'
     plugins {
-        SaxonPlugin {
-            id = 'com.github.eerohele.saxon-gradle'
+        create('SaxonPlugin') {
+            id = 'com.github.Lunatix01.saxon-gradle'
             displayName = 'Saxon Gradle Plugin'
-            implementationClass = 'com.github.eerohele.SaxonPlugin'
+            implementationClass = 'com.github.Lunatix01.SaxonPlugin'
             description = 'A Gradle plugin for running XSLT transformations with Saxon'
+            tags = ['saxon', 'xslt', 'documentation']
         }
     }
 }

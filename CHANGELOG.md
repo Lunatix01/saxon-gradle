@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### 0.9.0 BETA 5 - 2025-11-30
+- Fix compatibility with Gradle 9
+- Saxon HE upgraded to 12.6 
+- Removed deprecated XMLSlurper
+
 ## 0.9.0 - UNRELEASED
 - Allow users to specify the Saxon version to use
 - Use Gradle Worker API to prevent classpath conflicts

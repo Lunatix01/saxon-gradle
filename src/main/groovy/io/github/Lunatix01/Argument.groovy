@@ -1,4 +1,4 @@
-package com.github.Lunatix01
+package io.github.Lunatix01
 
 import java.lang.reflect.Modifier
 

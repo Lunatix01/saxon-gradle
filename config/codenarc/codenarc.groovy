@@ -21,6 +21,9 @@ ruleset {
         'VariableName' {
             finalRegex = '^_?[a-z][a-zA-Z0-9]*$'
         }
+        'PackageName' {
+            regex = /^[a-z][a-z0-9]*(\.[A-Za-z0-9]+)*$/
+        }
     }
     ruleset('rulesets/unused.xml')
     ruleset('rulesets/exceptions.xml')

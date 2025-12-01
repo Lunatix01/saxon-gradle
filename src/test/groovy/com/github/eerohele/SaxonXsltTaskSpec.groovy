@@ -12,24 +12,24 @@ import org.gradle.testkit.runner.TaskOutcome
 import spock.lang.Specification
 
 class SaxonXsltTaskSpec extends Specification {
-    File systemTempDir = new File(new File(System.getProperty("java.io.tmpdir")).getCanonicalPath())
+    private final File systemTempDir = new File(new File(System.getProperty("java.io.tmpdir")).getCanonicalPath())
 
     @Rule
-    final TemporaryFolder testProjectDir = new TemporaryFolder(systemTempDir)
+    private final TemporaryFolder testProjectDir = new TemporaryFolder(systemTempDir)
 
-    File outputDir
+    private File outputDir
 
-    File gradle
-    File xslt
-    File xml1
-    File xml2
-    File config
+    private File gradle
+    private File xslt
+    private File xml1
+    private File xml2
+    private File config
 
-    String unixPath(File file) {
+    private static String unixPath(File file) {
         file.getPath().replace('\\', '/')
     }
 
-    @SuppressWarnings(['DuplicateStringLiteral'])
+    @SuppressWarnings(['DuplicateStringLiteral', 'JUnitPublicNonTestMethod'])
     void setup() {
         // Why do we need to do this?
         testProjectDir.create()
@@ -46,15 +46,15 @@ class SaxonXsltTaskSpec extends Specification {
         outputDir = testProjectDir.newFolder('build')
     }
 
-    String fileAsString(File file) {
+    private String fileAsString(File file) {
         new String(Files.readAllBytes(Paths.get(file.toURI())))
     }
 
-    File outputFile(String path) {
+    private File outputFile(String path) {
         new File(outputDir, path)
     }
 
-    String outputPath(String path) {
+    private String outputPath(String path) {
         unixPath(outputFile(path))
     }
 
@@ -67,7 +67,7 @@ class SaxonXsltTaskSpec extends Specification {
                 .build()
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'String input path'() {
         given:
         xslt << '''
@@ -101,7 +101,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'File input'() {
         given:
         xslt << '''
@@ -136,7 +136,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'Multiple input files'() {
         given:
         xslt << '''
@@ -176,7 +176,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml2.xml')).equals('<c/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'String output path'() {
         given:
         xslt << '''
@@ -211,7 +211,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('non-default/my-awesome-output.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'File output'() {
         given:
         xslt << '''
@@ -246,7 +246,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('non-default/my-awesome-output.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'Saxon configuration file'() {
         given:
         config << '''
@@ -287,7 +287,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'DuplicateMapLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'DuplicateMapLiteral', 'JUnitPublicNonTestMethod'])
     def 'Up-to-date check'() {
         given:
         xslt << '''
@@ -357,7 +357,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.xml')).equals('<c/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'Advanced options'() {
         given:
         xslt << '''
@@ -392,7 +392,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'Deduce output file extension from stylesheet output method'() {
         given:
         xslt << '''
@@ -423,10 +423,10 @@ class SaxonXsltTaskSpec extends Specification {
 
         then:
         result.task(':xslt').outcome == TaskOutcome.SUCCESS
-        fileAsString(outputFile('xml1.html')).equals("<!DOCTYPE HTML><b></b>")
+        fileAsString(outputFile('xml1.html')) == "<b></b>" // From SAXON HE 10.6 DOCTYPE HTML is getting dropped
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'Constructing Saxon command-line arguments'() {
         expect:
         SaxonXsltTask.makeSingleHyphenArgument('foo', 'bar') == '-foo:bar'
@@ -435,7 +435,7 @@ class SaxonXsltTaskSpec extends Specification {
         SaxonXsltTask.makeDoubleHyphenArgument('xsd-version', 1.1) == '--xsd-version:1.1'
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'Setting XSLT parameters'() {
         given:
         xslt << '''
@@ -475,7 +475,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.xml')).equals('<b>bar</b>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'DuplicateMapLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'DuplicateMapLiteral', 'JUnitPublicNonTestMethod'])
     def 'No input file'() {
         given:
         xslt << '''
@@ -513,7 +513,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('output.xml')).equals("<b/>")
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'Output file extension'() {
         given:
         xslt << '''
@@ -548,7 +548,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.foo')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'Both output and output file extension'() {
         given:
         xslt << '''
@@ -584,7 +584,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('output.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'Output file extension (multiple files)'() {
         given:
         xslt << '''
@@ -625,7 +625,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml2.foo')).equals('<c/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'Both output and output file extension (multiple files)'() {
         given:
         xslt << '''
@@ -667,7 +667,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('non-default/xml2.foo')).equals('<c/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
     def 'Nested output directory layout: input under base directory'() {
         given:
         xslt << '''

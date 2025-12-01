@@ -35,19 +35,18 @@ test {
 }
 
 codenarc {
-    toolVersion = '0.24.1'
+    toolVersion = '3.6.0'
     configFile = file('config/codenarc/codenarc.groovy')
 }
 
 gradlePlugin {
-    website = 'https://github.com/Lunatix01/saxon-gradle'
-    vcsUrl = 'https://github.com/Lunatix01/saxon-gradle'
-    description = 'A Gradle plugin for running Saxon'
+    website = 'https://github.com/eerohele/saxon-gradle'
+    vcsUrl = 'https://github.com/eerohele/saxon-gradle.git'
     plugins {
-        create('SaxonPlugin') {
-            id = 'com.github.Lunatix01.saxon-gradle'
+        SaxonPlugin {
+            id = 'com.github.eerohele.saxon-gradle'
             displayName = 'Saxon Gradle Plugin'
-            implementationClass = 'com.github.Lunatix01.SaxonPlugin'
+            implementationClass = 'com.github.eerohele.SaxonPlugin'
             description = 'A Gradle plugin for running XSLT transformations with Saxon'
             tags = ['saxon', 'xslt', 'documentation']
         }

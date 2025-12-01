@@ -1,4 +1,4 @@
-package com.github.Lunatix01
+package com.github.eerohele
 
 import org.gradle.testkit.runner.BuildResult
 import org.junit.Rule
@@ -423,7 +423,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         then:
         result.task(':xslt').outcome == TaskOutcome.SUCCESS
-        fileAsString(outputFile('xml1.html')) == "<b></b>" // From SAXON HE 10.6 DOCTYPE HTML is getting dropped
+        fileAsString(outputFile('xml1.html')).equals("<!DOCTYPE HTML><b></b>")
     }
 
     @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])

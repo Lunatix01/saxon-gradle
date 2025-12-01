@@ -1,4 +1,4 @@
-package com.github.Lunatix01
+package com.github.eerohele
 
 import org.gradle.api.provider.ListProperty
 import org.gradle.workers.WorkParameters

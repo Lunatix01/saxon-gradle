@@ -1,7 +1,6 @@
-package com.github.Lunatix01
+package com.github.eerohele
 
-import groovy.xml.XmlSlurper
-import groovy.xml.slurpersupport.GPathResult
+import groovy.util.slurpersupport.GPathResult
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.tasks.Classpath

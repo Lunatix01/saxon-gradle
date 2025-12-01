@@ -15,11 +15,13 @@ configurations {
 }
 
 dependencies {
-    saxon 'net.sf.saxon:Saxon-HE:12.6'
+    // Use Saxon-HE 9.9.1-5 instead of the Saxon-HE version that comes with the
+    // plugin. 
+    saxon 'net.sf.saxon:Saxon-HE:9.9.1-5'
 }
 
 plugins {
-    id 'com.github.Lunatix01.saxon-gradle' version '0.9.0-beta5'
+    id 'com.github.eerohele.saxon-gradle' version '0.9.0-beta4'
 }
 
 xslt {
@@ -99,11 +101,6 @@ Additionally, the plugin supports these options that aren't related to Saxon:
 ## Limitations
 - Currently only supports XSLT. If you need XQuery support, please open an issue
   and I'll see what I can do.
-
-
-## NOTE
-This fork will be maintained if it has issues with the dependencies, otherwise it will not be maintained
-for new features, if you want to improve it, feel free to open a pull request for it.
 
 [gradle]: http://gradle.org/
 [gradle-daemon]: https://docs.gradle.org/current/userguide/gradle_daemon.html

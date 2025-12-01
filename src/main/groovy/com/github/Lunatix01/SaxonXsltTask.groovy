@@ -1,4 +1,4 @@
-package io.github.Lunatix01
+package com.github.Lunatix01
 
 import groovy.xml.XmlSlurper
 import groovy.xml.slurpersupport.GPathResult

@@ -1,4 +1,4 @@
-package io.github.Lunatix01
+package com.github.Lunatix01
 
 import org.gradle.api.Project
 import org.gradle.api.Plugin

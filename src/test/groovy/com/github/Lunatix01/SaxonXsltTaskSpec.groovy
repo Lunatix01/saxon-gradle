@@ -1,4 +1,4 @@
-package io.github.Lunatix01
+package com.github.Lunatix01
 
 import org.gradle.testkit.runner.BuildResult
 import org.junit.Rule
@@ -12,24 +12,24 @@ import org.gradle.testkit.runner.TaskOutcome
 import spock.lang.Specification
 
 class SaxonXsltTaskSpec extends Specification {
-    private final File systemTempDir = new File(new File(System.getProperty("java.io.tmpdir")).getCanonicalPath())
+    File systemTempDir = new File(new File(System.getProperty("java.io.tmpdir")).getCanonicalPath())
 
     @Rule
-    private final TemporaryFolder testProjectDir = new TemporaryFolder(systemTempDir)
+    final TemporaryFolder testProjectDir = new TemporaryFolder(systemTempDir)
 
-    private File outputDir
+    File outputDir
 
-    private File gradle
-    private File xslt
-    private File xml1
-    private File xml2
-    private File config
+    File gradle
+    File xslt
+    File xml1
+    File xml2
+    File config
 
-    private static String unixPath(File file) {
+    String unixPath(File file) {
         file.getPath().replace('\\', '/')
     }
 
-    @SuppressWarnings(['DuplicateStringLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['DuplicateStringLiteral'])
     void setup() {
         // Why do we need to do this?
         testProjectDir.create()
@@ -46,15 +46,15 @@ class SaxonXsltTaskSpec extends Specification {
         outputDir = testProjectDir.newFolder('build')
     }
 
-    private String fileAsString(File file) {
+    String fileAsString(File file) {
         new String(Files.readAllBytes(Paths.get(file.toURI())))
     }
 
-    private File outputFile(String path) {
+    File outputFile(String path) {
         new File(outputDir, path)
     }
 
-    private String outputPath(String path) {
+    String outputPath(String path) {
         unixPath(outputFile(path))
     }
 
@@ -67,7 +67,7 @@ class SaxonXsltTaskSpec extends Specification {
                 .build()
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'String input path'() {
         given:
         xslt << '''
@@ -84,7 +84,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
         plugins {
-            id 'io.github.Lunatix01.saxon-gradle'
+            id 'com.github.eerohele.saxon-gradle'
         }
 
         xslt {
@@ -101,7 +101,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'File input'() {
         given:
         xslt << '''
@@ -118,7 +118,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
             plugins {
-                id 'io.github.Lunatix01.saxon-gradle'
+                id 'com.github.eerohele.saxon-gradle'
             }
     
             xslt {
@@ -136,7 +136,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'Multiple input files'() {
         given:
         xslt << '''
@@ -158,7 +158,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
             plugins {
-                id 'io.github.Lunatix01.saxon-gradle'
+                id 'com.github.eerohele.saxon-gradle'
             }
     
             xslt {
@@ -176,7 +176,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml2.xml')).equals('<c/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'String output path'() {
         given:
         xslt << '''
@@ -193,7 +193,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
             plugins {
-                id 'io.github.Lunatix01.saxon-gradle'
+                id 'com.github.eerohele.saxon-gradle'
             }
     
             xslt {
@@ -211,7 +211,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('non-default/my-awesome-output.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'File output'() {
         given:
         xslt << '''
@@ -228,7 +228,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
         plugins {
-            id 'io.github.Lunatix01.saxon-gradle'
+            id 'com.github.eerohele.saxon-gradle'
         }
 
         xslt {
@@ -246,7 +246,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('non-default/my-awesome-output.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'Saxon configuration file'() {
         given:
         config << '''
@@ -269,7 +269,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
             plugins {
-                id 'io.github.Lunatix01.saxon-gradle'
+                id 'com.github.eerohele.saxon-gradle'
             }
     
             xslt {
@@ -287,7 +287,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'DuplicateMapLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'DuplicateMapLiteral'])
     def 'Up-to-date check'() {
         given:
         xslt << '''
@@ -308,7 +308,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
             plugins {
-                id 'io.github.Lunatix01.saxon-gradle'
+                id 'com.github.eerohele.saxon-gradle'
             }
     
             xslt {
@@ -357,7 +357,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.xml')).equals('<c/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'Advanced options'() {
         given:
         xslt << '''
@@ -374,7 +374,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
         plugins {
-            id 'io.github.Lunatix01.saxon-gradle'
+            id 'com.github.eerohele.saxon-gradle'
         }
 
         xslt {
@@ -392,7 +392,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'Deduce output file extension from stylesheet output method'() {
         given:
         xslt << '''
@@ -409,7 +409,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
             plugins {
-                id 'io.github.Lunatix01.saxon-gradle'
+                id 'com.github.eerohele.saxon-gradle'
             }
     
             xslt {
@@ -426,7 +426,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.html')) == "<b></b>" // From SAXON HE 10.6 DOCTYPE HTML is getting dropped
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'Constructing Saxon command-line arguments'() {
         expect:
         SaxonXsltTask.makeSingleHyphenArgument('foo', 'bar') == '-foo:bar'
@@ -435,7 +435,7 @@ class SaxonXsltTaskSpec extends Specification {
         SaxonXsltTask.makeDoubleHyphenArgument('xsd-version', 1.1) == '--xsd-version:1.1'
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'Setting XSLT parameters'() {
         given:
         xslt << '''
@@ -455,7 +455,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
         plugins {
-            id 'io.github.Lunatix01.saxon-gradle'
+            id 'com.github.eerohele.saxon-gradle'
         }
 
         xslt {
@@ -475,7 +475,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.xml')).equals('<b>bar</b>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'DuplicateMapLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'DuplicateMapLiteral'])
     def 'No input file'() {
         given:
         xslt << '''
@@ -490,7 +490,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
             plugins {
-                id 'io.github.Lunatix01.saxon-gradle'
+                id 'com.github.eerohele.saxon-gradle'
             }
 
             xslt {
@@ -513,7 +513,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('output.xml')).equals("<b/>")
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'Output file extension'() {
         given:
         xslt << '''
@@ -530,7 +530,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
             plugins {
-                id 'io.github.Lunatix01.saxon-gradle'
+                id 'com.github.eerohele.saxon-gradle'
             }
     
             xslt {
@@ -548,7 +548,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml1.foo')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'Both output and output file extension'() {
         given:
         xslt << '''
@@ -565,7 +565,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
             plugins {
-                id 'io.github.Lunatix01.saxon-gradle'
+                id 'com.github.eerohele.saxon-gradle'
             }
     
             xslt {
@@ -584,7 +584,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('output.xml')).equals('<b/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'Output file extension (multiple files)'() {
         given:
         xslt << '''
@@ -606,7 +606,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
         plugins {
-            id 'io.github.Lunatix01.saxon-gradle'
+            id 'com.github.eerohele.saxon-gradle'
         }
 
         xslt {
@@ -625,7 +625,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('xml2.foo')).equals('<c/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'Both output and output file extension (multiple files)'() {
         given:
         xslt << '''
@@ -647,7 +647,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
             plugins {
-                id 'io.github.Lunatix01.saxon-gradle'
+                id 'com.github.eerohele.saxon-gradle'
             }
     
             xslt {
@@ -667,7 +667,7 @@ class SaxonXsltTaskSpec extends Specification {
         fileAsString(outputFile('non-default/xml2.foo')).equals('<c/>')
     }
 
-    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral', 'JUnitPublicNonTestMethod'])
+    @SuppressWarnings(['MethodName', 'DuplicateStringLiteral', 'DuplicateListLiteral'])
     def 'Nested output directory layout: input under base directory'() {
         given:
         xslt << '''
@@ -689,7 +689,7 @@ class SaxonXsltTaskSpec extends Specification {
 
         gradle << """
             plugins {
-                id 'io.github.Lunatix01.saxon-gradle'
+                id 'com.github.eerohele.saxon-gradle'
             }
 
             xslt {

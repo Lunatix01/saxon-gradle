@@ -19,7 +19,7 @@ dependencies {
 }
 
 plugins {
-    id 'io.github.Lunatix01.saxon-gradle' version '0.9.0-beta5'
+    id 'com.github.Lunatix01.saxon-gradle' version '0.9.0-beta5'
 }
 
 xslt {

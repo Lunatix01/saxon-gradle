@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-### 0.9.5 
+### 0.9.0 - BETA 5
 - Support Gradle 9
 - Upgrade Saxon HE to version 12.6
 
